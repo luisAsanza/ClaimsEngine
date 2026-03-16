@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using ClaimsEngine.Infra.Data.Persistence;
 using ClaimsEngine.Infra.Data.Configuration;
 using Microsoft.Extensions.Options;
+using ClaimsEngine.Application.Abstractions;
+using ClaimsEngine.Infra.Data.Common;
 
 namespace ClaimsEngine.Infra.Data
 {
@@ -41,6 +43,10 @@ namespace ClaimsEngine.Infra.Data
                         }
                     );
                 });
+
+            // Custom services registration
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDbExceptionTranslator, SqlExceptionTranslator>();
 
             return services;
         }
