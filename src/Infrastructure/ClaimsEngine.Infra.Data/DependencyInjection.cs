@@ -7,6 +7,7 @@ using ClaimsEngine.Infra.Data.Configuration;
 using Microsoft.Extensions.Options;
 using ClaimsEngine.Application.Abstractions;
 using ClaimsEngine.Infra.Data.Common;
+using ClaimsEngine.Infra.Data.Repositories;
 
 namespace ClaimsEngine.Infra.Data
 {
@@ -45,6 +46,7 @@ namespace ClaimsEngine.Infra.Data
                 });
 
             // Custom services registration
+            services.AddScoped<IClaimRepository, ClaimRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDbExceptionTranslator, SqlExceptionTranslator>();
 

@@ -4,6 +4,6 @@ namespace ClaimsEngine.Application.Features.Claims.DTOs;
 
 public sealed record PatientDto(
     string Name,
-    DateTime? DateOfBirth,
+    DateOnly? DateOfBirth,
     RelationshipToInsured RelationshipToInsured
 );

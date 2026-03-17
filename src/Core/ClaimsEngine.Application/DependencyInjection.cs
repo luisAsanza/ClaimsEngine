@@ -10,6 +10,7 @@ public static class DependencyInjection
     {
         services.AddMediatR(cfg => {
             cfg.RegisterServicesFromAssembly(typeof(ApplicationAssemblyMarker).Assembly);
+            cfg.Lifetime = ServiceLifetime.Scoped; // Set MediatR services to Scoped lifetime
 
             // Register Pipeline Behaviors
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
