@@ -1,12 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using ClaimsEngine.Ingestion.Api.Features.Claims.Contracts;
-using ClaimsEngine.Ingestion.Api.Features.Claims;
 using MediatR;
 using ClaimsEngine.Application.Features.Claims.Commands;
 using ClaimsEngine.Application.Features.Claims.DTOs;
 using ClaimsEngine.Domain.Aggregates.ClaimAggregate;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ClaimsEngine.Ingestion.Api.Features.Claims.Controllers;
 

@@ -47,7 +47,9 @@ namespace ClaimsEngine.Infra.Data.Persistence.Configurations
             builder.Property(c => c.Status)
                 .HasColumnName("Status")
                 .IsRequired()
-                .HasConversion<int>();
+                .HasConversion<string>()
+                .HasMaxLength(20)
+                .IsUnicode(false);
 
             builder.Property(c => c.CreatedAt)
                 .HasColumnName("CreatedAt")
@@ -69,7 +71,10 @@ namespace ClaimsEngine.Infra.Data.Persistence.Configurations
 
                 p.Property(p => p.RelationshipToInsured)
                 .HasColumnName("PatientRelationshipToInsured")
-                .IsRequired();
+                .IsRequired()
+                .HasConversion<string>()
+                .HasMaxLength(20)
+                .IsUnicode(false);
             });
 
             builder.ComplexProperty(x => x.Insured, i =>

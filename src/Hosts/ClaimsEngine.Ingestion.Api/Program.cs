@@ -18,7 +18,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseExceptionHandler();
+
 // API projects can reject HTTP requests rather than use UseHttpsRedirection
 //app.UseHttpsRedirection();
+
+app.UseRouting();
+app.MapControllers();
 
 app.Run();

@@ -21,7 +21,7 @@ namespace ClaimsEngine.Infra.Data.Persistence.Migrations
                     SubscriberId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PayerId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ProviderNpi = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
@@ -29,7 +29,7 @@ namespace ClaimsEngine.Infra.Data.Persistence.Migrations
                     InsuredName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PatientDateOfBirth = table.Column<DateOnly>(type: "date", nullable: true),
                     PatientName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PatientRelationshipToInsured = table.Column<int>(type: "int", nullable: false)
+                    PatientRelationshipToInsured = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,19 +53,19 @@ namespace ClaimsEngine.Infra.Data.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LineItem",
+                name: "LineItems",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     ClaimId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LineItem", x => x.Id);
+                    table.PrimaryKey("PK_LineItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LineItem_Claims_ClaimId",
+                        name: "FK_LineItems_Claims_ClaimId",
                         column: x => x.ClaimId,
                         principalTable: "Claims",
                         principalColumn: "Id",
@@ -79,8 +79,8 @@ namespace ClaimsEngine.Infra.Data.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_LineItem_ClaimId",
-                table: "LineItem",
+                name: "IX_LineItems_ClaimId",
+                table: "LineItems",
                 column: "ClaimId");
 
             migrationBuilder.CreateIndex(
@@ -94,7 +94,7 @@ namespace ClaimsEngine.Infra.Data.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "LineItem");
+                name: "LineItems");
 
             migrationBuilder.DropTable(
                 name: "OutboxMessages");

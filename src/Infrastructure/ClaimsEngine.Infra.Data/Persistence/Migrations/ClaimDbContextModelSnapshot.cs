@@ -61,8 +61,11 @@ namespace ClaimsEngine.Infra.Data.Persistence.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int")
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)")
                         .HasColumnName("Status");
 
                     b.Property<string>("SubscriberId")
@@ -104,8 +107,11 @@ namespace ClaimsEngine.Infra.Data.Persistence.Migrations
                                 .HasColumnType("nvarchar(50)")
                                 .HasColumnName("PatientName");
 
-                            b1.Property<int>("RelationshipToInsured")
-                                .HasColumnType("int")
+                            b1.Property<string>("RelationshipToInsured")
+                                .IsRequired()
+                                .HasMaxLength(20)
+                                .IsUnicode(false)
+                                .HasColumnType("varchar(20)")
                                 .HasColumnName("PatientRelationshipToInsured");
                         });
 
@@ -125,20 +131,24 @@ namespace ClaimsEngine.Infra.Data.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)")
+                        .HasColumnName("Amount");
 
                     b.Property<Guid?>("ClaimId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("Description");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClaimId");
 
-                    b.ToTable("LineItem");
+                    b.ToTable("LineItems", (string)null);
                 });
 
             modelBuilder.Entity("ClaimsEngine.Infra.Data.Outbox.OutboxMessage", b =>

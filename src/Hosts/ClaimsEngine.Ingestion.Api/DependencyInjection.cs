@@ -1,6 +1,5 @@
 using FluentValidation;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace ClaimsEngine.Ingestion.Api;
 
@@ -11,7 +10,10 @@ public static class DependencyInjection
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
         services.AddValidatorsFromAssemblyContaining<Program>();
-        services.AddSingleton<System.TimeProvider>(System.TimeProvider.System);
+        services.AddSingleton(TimeProvider.System);
+        services.AddSingleton<IExceptionHandler, GlobalExceptionHandler>();
+        services.AddProblemDetails();
+        services.AddControllers();
 
         return services;
     }

@@ -30,9 +30,10 @@ namespace ClaimsEngine.Infra.Data
                 {
                     var claimsDbSettings = provider.GetRequiredService<IOptions<ClaimsDatabaseSettings>>().Value;
                     var interceptor = provider.GetRequiredService<InsertOutboxMessagesInterceptor>();
+
                     options.AddInterceptors(interceptor);
                     options.UseSqlServer(
-                        configuration.GetConnectionString(claimsDbSettings.ConnectionString),
+                        claimsDbSettings.ConnectionString,
                         sqlOptions =>
                         {
                             sqlOptions.MigrationsAssembly(typeof(ClaimDbContext).Assembly.GetName().Name);
